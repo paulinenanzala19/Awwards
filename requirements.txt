@@ -5,4 +5,5 @@ Django==4.0.5
 django-bootstrap3==21.2
 django-registration==3.3
 psycopg2==2.9.3
+python-decouple==3.6
 sqlparse==0.4.2
