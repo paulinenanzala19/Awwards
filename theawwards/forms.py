@@ -10,3 +10,9 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username','email','password1','password2')
+
+class ProjetForm(forms.ModelForm):
+    
+    class Meta:
+        model = Post
+        fields = ('image', 'title', 'url', 'description', 'technologies',)

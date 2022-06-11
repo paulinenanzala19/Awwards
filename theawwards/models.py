@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
+    image=models.ImageField(upload_to = 'images/', default='no image')
     title = models.CharField(max_length=155)
     url = models.URLField(max_length=255)
     description = models.TextField(max_length=255)
