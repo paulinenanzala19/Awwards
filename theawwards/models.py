@@ -62,3 +62,15 @@ class Ratings(models.Model):
     design_rate = models.IntegerField(choices=ratings, default=0, blank=True)
     usability_rate = models.IntegerField(choices=ratings, blank=True, default=0)
     content_rate = models.IntegerField(choices=ratings, blank=True,default=0)
+    overall_score = models.FloatField(default=0, blank=True)
+
+    def save_ratings(self):
+        self.save()
+
+    def __str__(self):
+        return f'{self.post} Ratings'
+
+    @classmethod
+    def get_ratings(cls, id):
+        ratings = Ratings.objects.filter(post_id=id).all()
+        return ratings
