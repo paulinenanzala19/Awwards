@@ -10,3 +10,11 @@ class Post(models.Model):
     technologies = models.CharField(max_length=200, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
+    bio = models.TextField(max_length=100)
+    contact=models.IntegerField(default=0)
+
+
