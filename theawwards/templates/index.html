@@ -1,1 +1,25 @@
 {%extends 'base.html'%}
+{% block content%}
+<div class="container-fluid d-flex flex-row flex-wrap justify-content-center">
+	{% for project in projects %}
+	<div class="mx-3 my-3 shadow rounded-3" style="width: 25em">
+		<h4 class="text-center p-2">{{project.title | capfirst}}</h4>
+		
+		<a class="my-2" href="">
+			<img src="{{project.image.url}}" alt="" class="img-fluid h-50 w-100 rounded-3" />
+		</a>
+		<br />
+		<div class="container d-flex justify-content-center p-2">
+			<a class="my-3 mx-auto text-center text-light" href="{{project.url}}">
+				<button class="text-muted btn btn-info">Visit site</button>
+			</a>
+		</div>
+		<div class="lead text-dark text-center fw-light bg-light m-3 p-1 rounded-3">
+			<strong>By: {{project.user.username}}</strong>
+            <b>{{project.date}}</b>   
+        </div>
+		
+	</div>
+	{% endfor %}
+</div>
+{%endblock%}
