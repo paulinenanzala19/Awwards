@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
+from django.contrib import messages
 from .forms import *
 from.models import *
 
@@ -35,26 +36,50 @@ def profile(request):
     if request.method == 'POST':
 
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        prof_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user)
+        prof_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if  prof_form.is_valid():
+        if  prof_form.is_valid() and user_form.is_valid:
             user_form.save()
             prof_form.save()
+            messages.success(request,f'Your account has been updated successfully!')
 
             return redirect('profile')
 
     else:
+        user_form = UserUpdateForm(instance=request.user)
+        prof_form = ProfileUpdateForm(instance=request.user.profile)
         
+
+    context = {
+        'user_form': user_form,           
+        'prof_form': prof_form
+    }
+
+    return render(request, 'profile.html', context)
+
+def update_profile(request):
+    if request.method == 'POST':
+
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        prof_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+
+        if user_form.is_valid():
+            user_form.save()
+            prof_form.save()
+
+            return redirect('home')
+
+    else:
+        user_form = UserUpdateForm(instance=request.user)
         prof_form = ProfileUpdateForm(instance=request.user)
-        
 
         context = {
-           
-            'prof_form': prof_form
+            'user_form': user_form,
+            'prof_form': profile_form
+
         }
 
-        return render(request, 'profile.html', context)
+    return render(request, 'update_profile.html', context)
 
 def search_results(request):
     if 'post' in request.GET and request.GET["post"]:

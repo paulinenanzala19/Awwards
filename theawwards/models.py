@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime as dt
 from django.utils import timezone
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Post(models.Model):
@@ -39,9 +41,24 @@ class Profile(models.Model):
     bio = models.TextField(max_length=100)
     contact=models.IntegerField(default=0)
     location = models.CharField(max_length=60, blank=True)
+    date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
     def save_profile(self):
         super().save()
+
+    def delete_user(self):
+        self.delete()
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+
+    if created:
+        Profile.objects.create(user=instance)
+
+    
 
 
 class Ratings(models.Model):
