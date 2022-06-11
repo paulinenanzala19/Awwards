@@ -11,10 +11,20 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
 
     def __str__(self):
-            return self.title
+        return self.title
 
     def save_post(self):
         self.save()
+
+    @classmethod
+    def get_projects(cls):
+        projects = Post.objects.all()
+        return projects
+
+    @classmethod
+    def search_project(cls,search_term):
+        project = Post.objects.filter(title__icontains=search_term)
+        return project
 
 
 class Profile(models.Model):
