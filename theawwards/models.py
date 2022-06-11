@@ -28,8 +28,8 @@ class Post(models.Model):
         return projects
 
     @classmethod
-    def search_project(cls,search_term):
-        project = Post.objects.filter(title__icontains=search_term)
+    def search_by_title(cls,search_term):
+        project = cls.objects.filter(title__icontains=search_term)
         return project
 
 
