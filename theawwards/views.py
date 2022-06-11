@@ -14,6 +14,23 @@ def home(request):
     
     return render(request,'index.html', context)
 
+def new_project(request):
+    current_user = request.user
+   
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+           
+            image.save()
+            
+        return redirect('home')
+
+    else:
+        form = ProjectForm()
+    return render(request, 'project.html', {"form": form})
+
 def profile(request):
     if request.method == 'POST':
 
@@ -38,3 +55,4 @@ def profile(request):
         }
 
         return render(request, 'profile.html', context)
+

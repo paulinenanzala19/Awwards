@@ -11,7 +11,7 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ('username','email','password1','password2')
 
-class ProjetForm(forms.ModelForm):
+class ProjectForm(forms.ModelForm):
     
     class Meta:
         model = Post
