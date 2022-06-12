@@ -1,10 +1,14 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 from django.contrib import messages
+from rest_framework import viewsets
 from .forms import *
 from.models import *
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from .serializers import *
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -34,6 +38,10 @@ def new_project(request):
     else:
         form = ProjectForm()
     return render(request, 'project.html', {"form": form})
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
