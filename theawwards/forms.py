@@ -30,3 +30,8 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username','email']
+
+class RatingsForm(forms.ModelForm):
+    class Meta:
+        model = Ratings
+        fields = ['design_rate', 'usability_rate', 'content_rate']

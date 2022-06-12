@@ -58,6 +58,10 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
     
 
 
@@ -80,6 +84,9 @@ class Ratings(models.Model):
     usability_rate = models.IntegerField(choices=ratings, blank=True, default=0)
     content_rate = models.IntegerField(choices=ratings, blank=True,default=0)
     overall_score = models.FloatField(default=0, blank=True)
+    design_avr = models.FloatField(default=0, blank=True)
+    usability_avr = models.FloatField(default=0, blank=True)
+    content_avr = models.FloatField(default=0, blank=True)
 
     def save_ratings(self):
         self.save()

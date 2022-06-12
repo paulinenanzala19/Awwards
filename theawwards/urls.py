@@ -10,6 +10,7 @@ urlpatterns=[
     path('project/', views.new_project,name ='new_project'),
     path('search/',views.search_results,name='search_results'),
     path('profile/',views.profile,name='profile'),
+    path('ratings/<post>/', views.project, name='ratings'),
     
 ]
 if settings.DEBUG:

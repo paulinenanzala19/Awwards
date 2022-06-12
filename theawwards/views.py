@@ -3,6 +3,7 @@ from django.http  import HttpResponse
 from django.contrib import messages
 from .forms import *
 from.models import *
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -90,3 +91,48 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request,'search.html',{"message":message})
+
+def project(request, post):
+    post = Post.objects.get(title=post)
+    ratings = Ratings.objects.filter(user=request.user, post=post).first()
+    rating_status = None
+    if ratings is None:
+        rating_status = False
+    else:
+        rating_status = True
+    if request.method == 'POST':
+        form = RatingsForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = request.user
+            rate.post = post
+            rate.save()
+            post_ratings = Ratings.objects.filter(post=post)
+
+            design_ratings = [des.design_rate for des in post_ratings]
+            design_avr = sum(design_ratings) / len(design_ratings)
+
+            usability_ratings = [usa.usability_rate for usa in post_ratings]
+            usability_avr = sum(usability_ratings) / len(usability_ratings)
+
+            content_ratings = [content.content_rate for content in post_ratings]
+            content_avr = sum(content_ratings) / len(content_ratings)
+
+            overall_score = (design_avr + usability_avr + content_avr) / 3
+            print(overall_score)
+            
+            rate.design_avr = round(design_avr, 2)
+            rate.usability_avr = round(usability_avr, 2)
+            rate.content_avr = round(content_avr, 2)
+            rate.overall_score = round(overall_score, 2)
+            rate.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = RatingsForm()
+    params = {
+        'post': post,
+        'rating_form': form,
+        'rating_status': rating_status
+
+    }
+    return render(request, 'ratings.html', params)
