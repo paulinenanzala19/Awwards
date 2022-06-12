@@ -3,6 +3,11 @@ from . import views
 from django.conf.urls.static import static
 from .views import *
 from django.conf import settings
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('posts', views.PostViewSet)
+
 
 
 urlpatterns=[
@@ -11,6 +16,7 @@ urlpatterns=[
     path('search/',views.search_results,name='search_results'),
     path('profile/',views.profile,name='profile'),
     path('ratings/<post>/', views.project, name='ratings'),
+    path('api/', include(router.urls)),
     
 ]
 if settings.DEBUG:
