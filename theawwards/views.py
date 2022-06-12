@@ -37,7 +37,7 @@ def profile(request):
     if request.method == 'POST':
 
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        prof_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+        prof_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
         if  prof_form.is_valid() and user_form.is_valid:
             user_form.save()
@@ -48,7 +48,7 @@ def profile(request):
 
     else:
         user_form = UserUpdateForm(instance=request.user)
-        prof_form = ProfileUpdateForm(instance=request.user)
+        prof_form = ProfileUpdateForm(instance=request.user.profile)
         
 
     context = {

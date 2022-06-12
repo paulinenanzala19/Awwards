@@ -14,7 +14,7 @@
               </a>
             </div>
 
-            <div class="card-body">
+            <div class="card-body" style="height:220px; ">
               <h3 style="font-family: 'Cuprum', sans-serif;">{{project.title}}</h3>
 
               <a href="{{project.url}}" target="_blank">view site</a>
@@ -23,7 +23,7 @@
             
               <hr>
               <span><a href="profile"> <img style="border-radius: 50%; width:30px; height:30px; "
-                    src="{{project.avatar.url }}" alt="image"></a>
+                    src="{{user.profile.image.url }}" alt="image"></a>
                 <b>By: {{project.user.username}}</b></span>
 
               <p class="card-meta float-right">{{project.date}}</p>

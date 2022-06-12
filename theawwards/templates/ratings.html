@@ -4,9 +4,11 @@
 {% block content%}
 <div class="container">
      <div class="card-body">
-         
+            <h2>{{post.title}}</h2>
+            <img style="height:280px; width:420px;" src="{{post.image.url}}" alt="" srcset="">
             <p>{{ post.description }}</p>
             <hr>
+            
             <p class="card-text "><img src="" class="nav-img mr-2" alt="">
                 By {{post.user.username|title}} <span style="float:right">{{post.date|date}}</span>
             </p>
@@ -42,7 +44,7 @@
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{rating_form|crispy}}
-                <button class="btn btn-sm btn-info">Rate</button>
+                <button class="btn btn-sm btn-info" style="margin-top:2%; margin-bottom: 5% ;">Rate</button>
             </form>
             {% endif %}
             {% endif %}
