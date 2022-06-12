@@ -47,6 +47,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 @login_required(login_url='/accounts/login/')
 def profile(request):
     if request.method == 'POST':
