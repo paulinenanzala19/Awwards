@@ -4,9 +4,10 @@ from django.contrib import messages
 from .forms import *
 from.models import *
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required(login_url='/accounts/login/')
 def home(request):
     projects = Post.get_projects()
     context={
@@ -16,6 +17,7 @@ def home(request):
     
     return render(request,'index.html', context)
 
+@login_required(login_url='/accounts/login/')
 def new_project(request):
     current_user = request.user
    
@@ -33,6 +35,7 @@ def new_project(request):
         form = ProjectForm()
     return render(request, 'project.html', {"form": form})
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
     if request.method == 'POST':
 
@@ -92,6 +95,7 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request,'search.html',{"message":message})
 
+@login_required(login_url='/accounts/login/')
 def project(request, post):
     post = Post.objects.get(title=post)
     ratings = Ratings.objects.filter(user=request.user, post=post).first()
