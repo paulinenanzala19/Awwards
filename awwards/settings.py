@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'theawwards',
     'bootstrap3',
     'crispy_forms',
+    'rest_framework',
     
 
 ]
