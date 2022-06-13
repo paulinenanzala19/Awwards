@@ -1,17 +1,18 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body> -->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="" style="color: #30D5C8; font-weight: bolder;">Awwards</a>
+        <a class="navbar-brand" href="/" style="color: #30D5C8; font-weight: bolder;">Awwards</a>
       </div>
-      <div class="col-sm-6 col-md-6">
+    
+      <div class="col-sm-3 col-md-3">
             {% if user.is_authenticated %}
             <ul>
               <li class="dropdown">
@@ -41,7 +42,9 @@
             </li>
 
             {% endif %}
-          </div>
+      </div>
+      
+      
 
           <div class="navbar-header">
             <a class="navbar-brand" href="{% url 'new_project'%}" style="color: #30D5C8;">Add Project</a>
@@ -62,9 +65,37 @@
           </div>
 
         </form>
+
       </div>
       <!-- search form end -->
+      <div class="col-sm-3 col-md-3">
+            {% if user.is_authenticated %}
+            <ul>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false"
+                 style="margin-top: 1%; background-color: transparent; color: #30D5C8; border: 1px solid #30D5C8;">API
+                          <span class="caret"></span>
+                      </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a href="/api/posts/">Post</a>
+                  </li>
+                  <li>
+                    <a href="/api/profile/">Profile</a>
+                  </li>
+                  <li>
+                    <a href="/api/users/">Users</a>
+                  </li>
+                  
+                </ul>
+              </li>
+            </ul>
+            
+
+            {% endif %}
+      </div>
+       
     </div>
   </nav>
-</body>
-</html>
+<!-- </body>
+</html> -->
